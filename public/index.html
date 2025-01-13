@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>gRPC Hello World</title>
+</head>
+<body>
+  <h1>¡Hola Mundo con gRPC!</h1>
+  <form id="helloForm">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" placeholder="Escribe tu nombre">
+    <button type="submit">Enviar</button>
+  </form>
+  <p id="response"></p>
+  <script>
+    document.getElementById('helloForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const response = await fetch('/api/sayhello', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name }),
+      });
+      const data = await response.json();
+      document.getElementById('response').textContent = data.message;
+    });
+  </script>
+</body>
+</html>
